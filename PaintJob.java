@@ -1,3 +1,6 @@
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +26,8 @@ import javax.swing.JOptionPane;
 
 public class PaintJob {
     public static void main(String[] args) {
+        float LABOR_CHARGES = 18;
+
 
         // Gather number of rooms 
         String input = JOptionPane.showInputDialog("Enter the number of rooms:");
@@ -38,6 +43,44 @@ public class PaintJob {
         float gallons = numGallons(squareFeet);
         // Total hours of labor
         float laborHours = hoursLabor(squareFeet);
+
+        // Find the cost of the paint
+        float costPaint = costPaint(gallons, paintPrice);
+        // Find the cost of labor
+        float costLabor = costLabor(laborHours, LABOR_CHARGES);
+
+        float total = costPaint + costLabor;
+
+        JOptionPane.showMessageDialog(null, "The total cost of the job is " + 
+                                      (NumberFormat.getCurrencyInstance(Locale.US).format(total)) + ".");
+    }
+
+    /**
+     * Method returns total cost of labor
+     * 
+     * @param laborHours hours required to finish job
+     * @param LABOR_CHARGES hourly charge for labor
+     * @return total cost of labor
+     */
+    public static float costLabor(float laborHours, float LABOR_CHARGES) {
+        float total = laborHours * LABOR_CHARGES;
+        
+        return total;
+    }
+
+
+    /**
+     * Method returns the total cost of paint
+     * 
+     * @param gallons gallons of paint needed
+     * @param paintPrice price per gallon
+     * @return total cost of paint
+     */
+    public static float costPaint(float gallons, float paintPrice) {
+        float total;
+        total = gallons * paintPrice;
+        
+        return total;
     }
 
     /**
